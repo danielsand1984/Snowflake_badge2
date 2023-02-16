@@ -14,7 +14,7 @@ def get_fruit_load_list():
       return my_cur.fetchall()
    
 def insert_row_snowflake(new_fruit):
-   my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values (new_fruit)")
+   my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('" + new_fruit"')")
    return streamlit.text("Thanks for adding " + new_fruit)
 
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
