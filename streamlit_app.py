@@ -12,6 +12,10 @@ def get_fruit_load_list():
    with my_cnx.cursor() as my_cur:
       my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
       return my_cur.fetchall()
+   
+def insert_row_snowflake(new_fruit):
+   my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values (new_fruit)")
+   return streamlit.text("Thanks for adding " + new_fruit)
 
 my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 my_fruit_list = my_fruit_list.set_index('Fruit')
@@ -51,8 +55,7 @@ if streamlit.button('get fruit load list'):
    streamlit.header("The fruit load list contains")
    streamlit.dataframe(get_fruit_load_list())
 
-streamlit.stop()
-streamlit.text("What fruit would you like to add?")
-add_my_fruit = streamlit.text_input("Add fruit to the list")
-streamlit.text("Thanks for adding " + add_my_fruit)
-my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('from streamlit')")
+add_my_fruit = streamlit.text_input("What fruit would you like to add?")
+
+if streamlit.button('Add fruit to the list'):
+   streamlit.text(insert_row_snowflake(add_my_fruit))
